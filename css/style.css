@@ -1,214 +1,491 @@
+/* Estilos Generales y de Reset */
 body {
-  font-family: Arial, sans-serif;
-  background-color: #f0f4f8;
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    font-family: 'Orbitron', sans-serif; /* Fuente principal para todo el sitio */
+    background: linear-gradient(to right, #0f2027, #203a43, #2c5364); /* Gradiente de fondo */
+    color: #f0f0f0; /* Color de texto general */
+    line-height: 1.6;
+    min-height: 100vh; /* Asegura que el body ocupe al menos toda la altura de la ventana */
+    display: flex;
+    flex-direction: column; /* Para que el footer se quede abajo */
 }
 
-header, footer {
-  background-color: #282c34;
-  color: white;
-  padding: 15px 20px;
-  text-align: center;
+/* Estilos del Encabezado (Header) */
+header {
+    background-color: #111;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.7);
 }
 
-footer {
-  font-size: 0.9rem;
-  color: #bbb;
-}
-
-nav {
-  text-align: center;
-  margin: 10px 0;
+/* Estilos de la Navegación (Nav) */
+nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 2rem; /* Espacio entre los elementos de la lista */
+    flex-wrap: wrap; /* Permite que los elementos se envuelvan en pantallas pequeñas */
 }
 
 nav a {
-  color: #61dafb;
-  margin: 0 10px;
-  text-decoration: none;
+    text-decoration: none;
+    color: #00fff7; /* Color de los enlaces de navegación */
+    font-weight: bold;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
 }
 
 nav a:hover {
-  text-decoration: underline;
+    color: #ff0099; /* Color al pasar el mouse */
+    text-shadow: 0 0 10px rgba(255, 0, 153, 0.7); /* Sombra de texto al pasar el mouse */
 }
 
+/* Estilo para el enlace activo de la navegación */
 nav a.activo {
-  font-weight: bold;
-  color: #005f99;
+    color: #ff0099;
+    text-decoration: underline;
+    text-shadow: 0 0 10px rgba(255, 0, 153, 0.7);
 }
 
+/* Estilos para el Contenido Principal (Main) */
 main {
-  padding: 2rem;
-  max-width: 800px;
-  margin: 0 auto;
+    flex-grow: 1; /* Permite que el contenido principal ocupe el espacio restante */
+    padding: 2rem 1rem;
+    /* Los estilos de flexbox aquí son más generales, las secciones internas se centrarán solas */
+    display: flex;
+    flex-direction: column; /* Permite que las secciones se apilen verticalmente */
+    align-items: center; /* Centra las secciones horizontalmente */
 }
 
-main section {
-  background-color: white;
-  border-radius: 10px;
-  padding: 20px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  margin-top: 1rem;
+/* Estilos para las secciones de contenido general (fondo oscuro, bordes brillantes) */
+/* Esta es una clase general que puedes aplicar a <section> dentro de <main> */
+.content-section {
+    background: rgba(0, 0, 0, 0.4); /* Fondo semitransparente */
+    border-radius: 15px;
+    padding: 2rem;
+    margin: 1rem auto; /* Margen superior/inferior y centrado */
+    max-width: 800px; /* Ancho máximo para la mayoría de las secciones */
+    box-shadow: 0 0 20px rgba(0, 255, 255, 0.3); /* Sombra brillante */
+    border: 1px solid rgba(0, 255, 247, 0.2); /* Borde sutil */
+    text-align: center; /* Centrar contenido por defecto */
 }
 
-main ul {
-  list-style-type: disc;
-  margin-left: 2rem;
+/* Estilos para la sección de Bienvenida (index.html) */
+.bienvenida {
+    /* Hereda de .content-section, puedes añadir estilos específicos si es necesario */
+    padding: 4rem 2rem; /* Más padding para la bienvenida */
 }
 
-main li {
-  margin-bottom: 1rem;
+/* Estilos para la sección de Otros Proyectos (otros-proyectos.html) */
+.proyectos {
+    /* Adaptado al tema oscuro */
+    background: rgba(0, 0, 0, 0.5); /* Fondo más oscuro para los proyectos */
+    border-radius: 20px;
+    padding: 2.5rem;
+    max-width: 750px; /* Un poco más ancho */
+    margin: 2rem auto;
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.5);
+    border: 1px solid #00fff7;
+    color: #f0f0f0; /* Color de texto general para esta sección */
+    font-family: 'Orbitron', sans-serif; /* Usar Orbitron para consistencia */
+    text-align: left; /* Alinear el texto de los proyectos a la izquierda */
 }
 
-main li a {
-  color: #007acc;
-  text-decoration: none;
-  font-weight: bold;
+.proyectos h2 {
+    text-align: center;
+    color: #00fff7; /* Color neón para el título de la sección */
+    margin-bottom: 2rem;
+    font-size: 2.5rem;
+    text-shadow: 0 0 15px rgba(0, 255, 247, 0.8);
 }
 
-main li a:hover {
-  text-decoration: underline;
+.proyectos .proyecto {
+    background-color: rgba(255, 255, 255, 0.08); /* Fondo sutil para cada proyecto */
+    border: 1px solid rgba(0, 255, 247, 0.3); /* Borde brillante */
+    border-radius: 12px;
+    padding: 1.5rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 255, 255, 0.2); /* Sombra para cada proyecto */
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.proyectos .proyecto:hover {
+    transform: translateY(-5px); /* Efecto de elevación al pasar el mouse */
+    box-shadow: 0 8px 25px rgba(0, 255, 255, 0.4);
+}
+
+.proyectos .proyecto h3 {
+    color: #ff0099; /* Color de acento para los títulos de proyecto */
+    margin-bottom: 0.8rem;
+    font-size: 1.8rem;
+    text-shadow: 0 0 8px rgba(255, 0, 153, 0.5);
+}
+
+.proyectos .proyecto p {
+    color: #a0a0a0; /* Color de texto más suave */
+    font-size: 1.05rem;
+    margin-bottom: 1rem;
+}
+
+.proyectos .proyecto a {
+    display: inline-block;
+    color: #00fff7; /* Color de enlace neón */
+    font-weight: bold;
+    text-decoration: none;
+    transition: color 0.3s ease, text-shadow 0.3s ease;
+}
+
+.proyectos .proyecto a:hover {
+    color: #ff0099;
+    text-decoration: underline;
+    text-shadow: 0 0 5px rgba(255, 0, 153, 0.7);
+}
+
+/* --- Estilos Específicos para la Página de Contacto --- */
+
+.contenedor-contacto {
+    padding: 3rem 2rem;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.5); /* Fondo más oscuro para el formulario */
+    margin: 2rem auto;
+    max-width: 600px; /* Ancho máximo del contenedor del formulario */
+    border-radius: 20px; /* Bordes más redondeados */
+    box-shadow: 0 0 30px rgba(0, 255, 255, 0.5); /* Sombra más pronunciada */
+    border: 1px solid #00fff7; /* Borde sutil brillante */
+}
+
+.contenedor-contacto h1 {
+    font-size: 2.8rem; /* Título más grande */
+    margin-bottom: 1rem;
+    color: #00fff7;
+    text-shadow: 0 0 15px rgba(0, 255, 247, 0.8); /* Sombra de texto para el título */
+}
+
+.subtitulo-contacto {
+    font-size: 1.1rem;
+    margin-bottom: 2.5rem;
+    color: #a0a0a0; /* Un color de texto más suave para el subtítulo */
+}
+
+#form-contacto {
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem; /* Mayor espacio entre los elementos del formulario */
+    max-width: 450px; /* Ancho máximo del formulario en sí */
+    margin: 0 auto;
+    text-align: left;
+}
+
+.form-grupo {
+    margin-bottom: 0.5rem; /* Espacio entre grupos de label/input */
+}
+
+#form-contacto label {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #f0f0f0;
+    margin-bottom: 0.8rem; /* Más espacio debajo de la etiqueta */
+    display: block;
+    text-transform: uppercase; /* Etiquetas en mayúsculas */
+    letter-spacing: 0.05em; /* Espaciado entre letras */
+}
+
+#form-contacto input[type="text"],
+#form-contacto input[type="email"],
+#form-contacto textarea {
+    width: calc(100% - 20px); /* Ajuste para padding */
+    padding: 10px; /* Relleno uniforme */
+    border: 2px solid #00fff7; /* Borde más grueso y brillante */
+    border-radius: 10px; /* Bordes más redondeados */
+    background-color: rgba(255, 255, 255, 0.08); /* Fondo más sutil */
+    color: #f0f0f0;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.3s ease, background-color 0.3s ease, box-shadow 0.3s ease;
+    font-family: 'Orbitron', sans-serif; /* Aplica Orbitron a los inputs */
+}
+
+#form-contacto input[type="text"]:focus,
+#form-contacto input[type="email"]:focus,
+#form-contacto textarea:focus {
+    border-color: #ff0099; /* Color al enfocar */
+    background-color: rgba(255, 255, 255, 0.15); /* Fondo más visible al enfocar */
+    box-shadow: 0 0 15px rgba(255, 0, 153, 0.6); /* Sombra al enfocar */
+}
+
+#form-contacto textarea {
+    resize: vertical;
+    min-height: 120px; /* Altura mínima del área de texto */
+}
+
+#form-contacto button[type="submit"] {
+    background: linear-gradient(45deg, #00fff7, #00aaff); /* Gradiente para el botón */
+    color: #0f2027;
+    border: none;
+    padding: 1.2rem 2.5rem; /* Mayor relleno */
+    border-radius: 10px;
+    font-size: 1.3rem; /* Texto más grande */
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-top: 2rem; /* Más espacio superior */
+    box-shadow: 0 5px 15px rgba(0, 255, 247, 0.4); /* Sombra para el botón */
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+}
+
+#form-contacto button[type="submit"]:hover {
+    background: linear-gradient(45deg, #ff0099, #cc007a); /* Gradiente al pasar el mouse */
+    transform: translateY(-3px) scale(1.02); /* Efecto más pronunciado */
+    box-shadow: 0 8px 20px rgba(255, 0, 153, 0.6);
+}
+
+.mensaje-envio {
+    margin-top: 2rem;
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #00fff7; /* Color de confirmación consistente */
+    background-color: rgba(0, 255, 247, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    border: 1px solid #00fff7;
+    display: none; /* Inicialmente oculto, JS lo mostrará */
+}
+
+/* --- Estilos para la Página del Juego (juego.html) --- */
+.juego {
+    /* Esta sección también usará .content-section */
+    /* Puedes añadir estilos específicos si es necesario, pero .content-section ya le da un buen look */
 }
 
 .juego h2, .juego h3, .juego h4 {
-  text-align: center;
+    text-align: center;
+    color: #00fff7; /* Color neón para los títulos del juego */
+    text-shadow: 0 0 10px rgba(0, 255, 247, 0.6);
+    margin-bottom: 1rem;
 }
 
 .opciones, .acciones {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  margin: 10px 0 20px 0;
-  flex-wrap: wrap;
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem; /* Mayor espacio entre botones */
+    margin: 2rem 0; /* Más margen para separar */
+    flex-wrap: wrap;
 }
 
 .opcion, .acciones button {
-  background-color: #61dafb;
-  border: none;
-  padding: 10px 15px;
-  font-size: 1rem;
-  cursor: pointer;
-  border-radius: 5px;
-  transition: background-color 0.3s ease;
+    background: linear-gradient(45deg, #00fff7, #00aaff); /* Gradiente para los botones */
+    color: #0f2027; /* Color de texto oscuro para contraste */
+    border: none;
+    padding: 1rem 2rem; /* Mayor padding */
+    font-size: 1.1rem;
+    font-weight: bold;
+    cursor: pointer;
+    border-radius: 10px; /* Bordes más redondeados */
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 10px rgba(0, 255, 247, 0.3); /* Sombra para los botones */
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
 }
 
 .opcion:hover, .acciones button:hover {
-  background-color: #21a1f1;
+    background: linear-gradient(45deg, #ff0099, #cc007a); /* Gradiente al pasar el mouse */
+    transform: translateY(-3px) scale(1.02);
+    box-shadow: 0 6px 15px rgba(255, 0, 153, 0.5);
 }
 
 .opcion.seleccionado {
-  background-color: #0d8bd3;
-  color: white;
+    background: linear-gradient(45deg, #ff0099, #cc007a); /* Color de selección */
+    color: white;
+    box-shadow: 0 0 15px rgba(255, 0, 153, 0.8); /* Sombra más intensa al seleccionar */
+    transform: scale(1.05); /* Ligeramente más grande al seleccionar */
 }
 
 .resultado {
-  background-color: #e1eaff;
-  border-radius: 8px;
-  padding: 15px;
-  min-height: 120px;
-  text-align: center;
-  font-size: 1.1rem;
-  color: #333;
+    background: rgba(0, 0, 0, 0.6); /* Fondo oscuro semitransparente */
+    border: 2px solid #00fff7; /* Borde brillante */
+    border-radius: 15px;
+    padding: 2rem;
+    min-height: 150px; /* Mayor altura mínima */
+    text-align: center;
+    font-size: 1.3rem; /* Texto más grande */
+    color: #00fff7; /* Color de texto neón */
+    box-shadow: 0 0 25px rgba(0, 255, 255, 0.4); /* Sombra brillante */
+    display: flex; /* Para centrar el texto verticalmente */
+    align-items: center;
+    justify-content: center;
+    margin-top: 2rem;
 }
 
 /* Barras de vida */
 .barra-vida {
-  width: 100%;
-  background-color: #ddd;
-  border-radius: 10px;
-  overflow: hidden;
-  height: 25px;
-  margin-bottom: 5px;
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.1); /* Fondo sutil para la barra vacía */
+    border-radius: 10px;
+    overflow: hidden;
+    height: 30px; /* Mayor altura */
+    margin-bottom: 10px;
+    border: 1px solid #00fff7; /* Borde brillante */
+    box-shadow: 0 0 10px rgba(0, 255, 247, 0.3); /* Sombra para la barra */
 }
 
 .vida-actual {
-  height: 100%;
-  width: 100%;
-  background-color: #4caf50;
-  transition: width 0.5s ease;
+    height: 100%;
+    width: 100%; /* El JS ajustará esto */
+    background-color: #4caf50; /* Verde por defecto */
+    transition: width 0.5s ease, background-color 0.5s ease;
+    border-radius: 10px; /* Bordes redondeados también en la barra interna */
 }
 
 /* Cambiar color de barra de vida según nivel */
+/* Los colores se mantienen, pero se ven mejor en el fondo oscuro */
 .vida-actual[style*="width: 100%"],
 .vida-actual[style*="width: 90%"],
 .vida-actual[style*="width: 80%"],
 .vida-actual[style*="width: 70%"],
 .vida-actual[style*="width: 60%"],
 .vida-actual[style*="width: 50%"] {
-  background-color: #4caf50;
+    background-color: #4caf50; /* Verde */
 }
 
 .vida-actual[style*="width: 40%"],
 .vida-actual[style*="width: 30%"],
 .vida-actual[style*="width: 20%"] {
-  background-color: #ff9800;
+    background-color: #ff9800; /* Naranja */
 }
 
 .vida-actual[style*="width: 10%"],
 .vida-actual[style*="width: 0%"] {
-  background-color: #f44336;
+    background-color: #f44336; /* Rojo */
 }
 
-/* Estilo para proyectos en página "Otros Proyectos" */
-.proyecto {
-  background-color: #fff;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  padding: 15px;
-  margin-bottom: 1.5rem;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+/* Estilos del Pie de Página (Footer) */
+footer {
+    text-align: center;
+    padding: 1.5rem;
+    background-color: #111;
+    margin-top: auto; /* Empuja el footer hacia abajo */
+    font-size: 0.9rem;
+    box-shadow: 0 -2px 10px rgba(0,0,0,0.7);
+    color: #a0a0a0; /* Color de texto más suave */
 }
 
-.proyecto a {
-  color: #007acc;
-  font-weight: bold;
-  text-decoration: none;
+/* --- Media Queries para Responsividad --- */
+@media (max-width: 768px) {
+    nav ul {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    /* Ajustes generales para secciones de contenido */
+    .content-section, .proyectos, .contenedor-contacto {
+        padding: 2rem 1rem;
+        margin: 1rem auto;
+        border-radius: 15px;
+        max-width: 90%; /* Ajuste para pantallas más pequeñas */
+    }
+
+    .bienvenida h1, .proyectos h2, .contenedor-contacto h1 {
+        font-size: 2.2rem;
+    }
+
+    .subtitulo-contacto {
+        font-size: 1rem;
+    }
+
+    #form-contacto {
+        gap: 1.2rem;
+    }
+
+    #form-contacto label {
+        font-size: 1rem;
+    }
+
+    #form-contacto input[type="text"],
+    #form-contacto input[type="email"],
+    #form-contacto textarea {
+        padding: 8px;
+        font-size: 0.9rem;
+    }
+
+    #form-contacto button[type="submit"] {
+        padding: 1rem 2rem;
+        font-size: 1.1rem;
+    }
+
+    .mensaje-envio {
+        font-size: 1rem;
+        padding: 10px;
+    }
+
+    /* Juego */
+    .opciones, .acciones {
+        gap: 1rem;
+        margin: 1.5rem 0;
+    }
+
+    .opcion, .acciones button {
+        padding: 0.8rem 1.5rem;
+        font-size: 1rem;
+    }
+
+    .resultado {
+        padding: 1.5rem;
+        font-size: 1.1rem;
+        min-height: 100px;
+    }
+
+    .barra-vida {
+        height: 25px;
+    }
 }
 
-.proyecto a:hover {
-  text-decoration: underline;
-}
-/* Otros Proyectos */
-.proyectos {
-  background-color: #ffffff;
-  border-radius: 8px;
-  padding: 2rem;
-  max-width: 700px;
-  margin: 0 auto;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-  font-family: Arial, sans-serif;
-}
+@media (max-width: 480px) {
+    header, footer {
+        padding: 0.8rem;
+    }
 
-.proyectos h2 {
-  text-align: center;
-  color: #282c34;
-  margin-bottom: 1.5rem;
-}
+    nav a {
+        padding: 0.3rem 0.8rem;
+    }
 
-.proyectos .proyecto {
-  margin-bottom: 2rem;
-}
+    .content-section, .proyectos, .contenedor-contacto {
+        padding: 1.5rem 0.8rem;
+        max-width: 95%;
+    }
 
-.proyectos .proyecto h3 {
-  color: #0d8bd3;
-  margin-bottom: 0.5rem;
-}
+    .bienvenida h1, .proyectos h2, .contenedor-contacto h1 {
+        font-size: 1.8rem;
+    }
 
-.proyectos .proyecto p {
-  color: #444;
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-}
+    .subtitulo-contacto {
+        font-size: 0.9rem;
+        margin-bottom: 1.5rem;
+    }
 
-.proyectos .proyecto a {
-  display: inline-block;
-  color: #007acc;
-  font-weight: bold;
-  text-decoration: none;
-  transition: color 0.3s ease;
-}
+    #form-contacto {
+        max-width: 90%;
+    }
 
-.proyectos .proyecto a:hover {
-  color: #005f99;
-  text-decoration: underline;
+    #form-contacto button[type="submit"] {
+        font-size: 1rem;
+    }
+
+    /* Juego */
+    .opcion, .acciones button {
+        padding: 0.6rem 1.2rem;
+        font-size: 0.9rem;
+    }
+
+    .resultado {
+        font-size: 1rem;
+        min-height: 80px;
+    }
+
+    .barra-vida {
+        height: 20px;
+    }
 }
