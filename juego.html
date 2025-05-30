@@ -6,7 +6,6 @@
   <title>Juego Elemental - LibreGame</title>
   <link rel="stylesheet" href="css/style.css" />
 </head>
-  <script src="js/juego.js"></script>
 <body>
   <header>
     <h1>LibreGame - Juego Elemental</h1>
@@ -19,8 +18,28 @@
 
   <main>
     <section class="juego">
-      <h2>¡Elige tu elemento!</h2>
+      <h2>¡Elige tu acción!</h2>
+
+      <!-- Barra de vida jugador -->
+      <div>
+        <h3>Jugador</h3>
+        <div class="barra-vida">
+          <div id="vida-jugador" class="vida-actual"></div>
+        </div>
+        <p id="texto-vida-jugador">100 / 100</p>
+      </div>
+
+      <!-- Barra de vida computadora -->
+      <div>
+        <h3>Computadora</h3>
+        <div class="barra-vida">
+          <div id="vida-computadora" class="vida-actual"></div>
+        </div>
+        <p id="texto-vida-computadora">100 / 100</p>
+      </div>
+
       <div class="opciones">
+        <h4>Elige elemento:</h4>
         <button class="opcion" data-opcion="piedra">🪨 Piedra</button>
         <button class="opcion" data-opcion="papel">📄 Papel</button>
         <button class="opcion" data-opcion="tijera">✂️ Tijera</button>
@@ -28,37 +47,16 @@
         <button class="opcion" data-opcion="agua">💧 Agua</button>
         <button class="opcion" data-opcion="rayo">⚡ Rayo</button>
       </div>
-<section class="juego">
-  <h2>¡Elige tu acción!</h2>
 
-  <div class="vida-container">
-    <p><strong>Tu vida:</strong></p>
-    <div class="barra-vida" id="barra-vida-jugador"></div>
-  </div>
-
-  <div class="vida-container">
-    <p><strong>Vida computadora:</strong></p>
-    <div class="barra-vida" id="barra-vida-computadora"></div>
-  </div>
-
-  <div class="acciones">
-    <button class="accion" data-accion="piedra">🪨 Piedra</button>
-    <button class="accion" data-accion="papel">📄 Papel</button>
-    <button class="accion" data-accion="tijera">✂️ Tijera</button>
-    <button class="accion" data-accion="fuego">🔥 Fuego</button>
-    <button class="accion" data-accion="agua">💧 Agua</button>
-    <button class="accion" data-accion="rayo">⚡ Rayo</button>
-    <button class="accion" data-accion="bloquear">🛡️ Bloquear</button>
-    <button class="accion" data-accion="esperar">⌛ Esperar</button>
-  </div>
-
-  <div id="resultado" class="resultado">
-    <p>Selecciona una acción para comenzar el juego.</p>
-  </div>
-</section>
+      <div class="acciones">
+        <h4>Elige acción:</h4>
+        <button id="atacar">Atacar</button>
+        <button id="bloquear">Bloquear</button>
+        <button id="esperar">Esperar</button>
+      </div>
 
       <div id="resultado" class="resultado">
-        <p>Selecciona una opción para comenzar el juego.</p>
+        <p>Selecciona un elemento y una acción para comenzar.</p>
       </div>
     </section>
   </main>
