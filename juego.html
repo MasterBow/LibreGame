@@ -1,16 +1,30 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es"> <!-- Define que el documento está en español -->
 <head>
+  <!-- Enlace al archivo de estilos CSS personalizado -->
   <link rel="stylesheet" href="css/style.css" />
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+  
+  <!-- Fuente importada desde Google Fonts para estilizar los textos -->
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet">
+
+  <!-- Codificación de caracteres para soportar acentos y caracteres especiales -->
   <meta charset="UTF-8" />
+  
+  <!-- Configuración responsive: ajusta el contenido al ancho del dispositivo -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Título que se muestra en la pestaña del navegador -->
   <title>Juego Elemental - LibreGame</title>
+
+  <!-- Segundo llamado al mismo CSS, redundante (puede eliminarse uno) -->
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+  <!-- Encabezado principal del sitio -->
   <header>
     <h1>LibreGame - Juego Elemental</h1>
+    
+    <!-- Menú de navegación con enlaces a otras secciones -->
     <nav>
       <a href="index.html">Inicio</a>
       <a href="acerca.html">Acerca de</a>
@@ -18,30 +32,37 @@
     </nav>
   </header>
 
+  <!-- Contenido principal del sitio -->
   <main>
     <section class="juego">
       <h2>¡Elige tu acción!</h2>
 
-      <!-- Barra de vida jugador -->
+      <!-- Sección de barra de vida del jugador -->
       <div>
         <h3>Jugador</h3>
         <div class="barra-vida">
+          <!-- Elemento visual que representará la vida actual del jugador -->
           <div id="vida-jugador" class="vida-actual"></div>
         </div>
+        <!-- Texto que muestra los puntos de vida del jugador -->
         <p id="texto-vida-jugador">100 / 100</p>
       </div>
 
-      <!-- Barra de vida computadora -->
+      <!-- Sección de barra de vida de la computadora (IA) -->
       <div>
         <h3>Computadora</h3>
         <div class="barra-vida">
+          <!-- Elemento visual para representar la vida de la computadora -->
           <div id="vida-computadora" class="vida-actual"></div>
         </div>
+        <!-- Texto que muestra los puntos de vida de la computadora -->
         <p id="texto-vida-computadora">100 / 100</p>
       </div>
 
+      <!-- Sección con los botones para elegir el "elemento" del ataque -->
       <div class="opciones">
         <h4>Elige elemento:</h4>
+        <!-- Cada botón tiene un atributo data-opcion que será usado por JavaScript -->
         <button class="opcion" data-opcion="piedra">🪨 Piedra</button>
         <button class="opcion" data-opcion="papel">📄 Papel</button>
         <button class="opcion" data-opcion="tijera">✂️ Tijera</button>
@@ -50,6 +71,7 @@
         <button class="opcion" data-opcion="rayo">⚡ Rayo</button>
       </div>
 
+      <!-- Sección con los botones para elegir la acción a realizar -->
       <div class="acciones">
         <h4>Elige acción:</h4>
         <button id="atacar">Atacar</button>
@@ -57,16 +79,19 @@
         <button id="esperar">Esperar</button>
       </div>
 
+      <!-- Sección que muestra el resultado de cada turno o acción -->
       <div id="resultado" class="resultado">
         <p>Selecciona un elemento y una acción para comenzar.</p>
       </div>
     </section>
   </main>
 
+  <!-- Pie de página con derechos de autor -->
   <footer>
     <p>&copy; 2025 LibreGame. Todos los derechos reservados.</p>
   </footer>
 
+  <!-- Inclusión del archivo JavaScript que controlará la lógica del juego -->
   <script src="js/juego.js"></script>
 </body>
 </html>
