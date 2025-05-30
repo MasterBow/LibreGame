@@ -183,5 +183,11 @@ footer {
   width: 100%;
   background-color: #4caf50;
   transition: width 0.3s ease;
+  function actualizarBarraVida(elementoId, vidaActual, vidaMaxima) {
+  const barra = document.getElementById(elementoId);
+  const porcentaje = (vidaActual / vidaMaxima) * 100;
+  barra.style.setProperty('--vida-porcentaje', porcentaje + '%');
+}
+
 }
 
