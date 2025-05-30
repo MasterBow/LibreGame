@@ -12,10 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     rayo:     { fuerte: ["agua", "fuego"],     "débil": ["piedra", "tijera"] }
   };
 
-  // Aquí puedes continuar con el resto del código
-
-});
-  let vidaJugador = maxVida;
+let vidaJugador = maxVida;
   let vidaComputadora = maxVida;
   let eleccionJugador = null;
   let eleccionComputadora = null;
@@ -38,8 +35,8 @@ document.addEventListener("DOMContentLoaded", () => {
   function actualizarVida() {
     vidaJugadorBarra.style.width = (vidaJugador > 0 ? vidaJugador : 0) + "%";
     vidaComputadoraBarra.style.width = (vidaComputadora > 0 ? vidaComputadora : 0) + "%";
-    textoVidaJugador.textContent = `${vidaJugador > 0 ? vidaJugador : 0} / ${maxVida}`;
-    textoVidaComputadora.textContent = `${vidaComputadora > 0 ? vidaComputadora : 0} / ${maxVida}`;
+    textoVidaJugador.textContent = ${vidaJugador > 0 ? vidaJugador : 0} / ${maxVida};
+    textoVidaComputadora.textContent = ${vidaComputadora > 0 ? vidaComputadora : 0} / ${maxVida};
   }
 
   // Elige opción jugador
@@ -49,7 +46,7 @@ document.addEventListener("DOMContentLoaded", () => {
       // Visualmente marcar selección
       botonesOpciones.forEach(b => b.classList.remove("seleccionado"));
       boton.classList.add("seleccionado");
-      resultadoDiv.innerHTML = `<p>Has seleccionado <strong>${capitalizar(eleccionJugador)}</strong>. Ahora elige una acción.</p>`;
+      resultadoDiv.innerHTML = <p>Has seleccionado <strong>${capitalizar(eleccionJugador)}</strong>. Ahora elige una acción.</p>;
     });
   });
 
@@ -66,7 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Acción atacar
   function atacar() {
     if (!eleccionJugador) {
-      resultadoDiv.innerHTML = `<p>Primero selecciona un elemento.</p>`;
+      resultadoDiv.innerHTML = <p>Primero selecciona un elemento.</p>;
       return;
     }
 
@@ -126,15 +123,15 @@ document.addEventListener("DOMContentLoaded", () => {
     actualizarVida();
 
     // Mostrar resultado
-    let textoResultado = `<p>Elegiste <strong>${capitalizar(eleccionJugador)}</strong> y atacaste.</p>`;
-    textoResultado += `<p>La computadora eligió <strong>${capitalizar(eleccionComputadora)}</strong> y su acción fue <strong>${accionCompu}</strong>.</p>`;
-    textoResultado += `<p>Daño a computadora: ${Math.round(danioJugador)}</p>`;
-    if (accionCompu === "atacar") textoResultado += `<p>Daño a ti: ${Math.round(danioComputadora)}</p>`;
-    else if (accionCompu === "bloquear") textoResultado += `<p>Computadora se bloqueó y reduce daño el siguiente turno.</p>`;
-    else textoResultado += `<p>Computadora recuperó vida (+${esperaRecuperacion}).</p>`;
+    let textoResultado = <p>Elegiste <strong>${capitalizar(eleccionJugador)}</strong> y atacaste.</p>;
+    textoResultado += <p>La computadora eligió <strong>${capitalizar(eleccionComputadora)}</strong> y su acción fue <strong>${accionCompu}</strong>.</p>;
+    textoResultado += <p>Daño a computadora: ${Math.round(danioJugador)}</p>;
+    if (accionCompu === "atacar") textoResultado += <p>Daño a ti: ${Math.round(danioComputadora)}</p>;
+    else if (accionCompu === "bloquear") textoResultado += <p>Computadora se bloqueó y reduce daño el siguiente turno.</p>;
+    else textoResultado += <p>Computadora recuperó vida (+${esperaRecuperacion}).</p>;
 
     if (vidaJugador === 0 || vidaComputadora === 0) {
-      textoResultado += `<h3>${vidaJugador === 0 ? "¡Perdiste el juego!" : "¡Ganaste el juego!"}</h3>`;
+      textoResultado += <h3>${vidaJugador === 0 ? "¡Perdiste el juego!" : "¡Ganaste el juego!"}</h3>;
       deshabilitarBotones();
     }
 
@@ -144,7 +141,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Acción bloquear
   function bloquear() {
     if (!eleccionJugador) {
-      resultadoDiv.innerHTML = `<p>Primero selecciona un elemento.</p>`;
+      resultadoDiv.innerHTML = <p>Primero selecciona un elemento.</p>;
       return;
     }
     jugadorBloqueando = true;
@@ -154,8 +151,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const accionCompu = accionesComputadora[Math.floor(Math.random() * accionesComputadora.length)];
 
     // Computadora ataca si el jugador bloquea, jugador no recibe daño este turno
-    let textoResultado = `<p>Elegiste <strong>${capitalizar(eleccionJugador)}</strong> y te bloqueaste.</p>`;
-    textoResultado += `<p>La computadora eligió <strong>${capitalizar(eleccionComputadora)}</strong> y su acción fue <strong>${accionCompu}</strong>.</p>`;
+    let textoResultado = <p>Elegiste <strong>${capitalizar(eleccionJugador)}</strong> y te bloqueaste.</p>;
+    textoResultado += <p>La computadora eligió <strong>${capitalizar(eleccionComputadora)}</strong> y su acción fue <strong>${accionCompu}</strong>.</p>;
 
     if (accionCompu === "atacar") {
       // Computadora ataca, jugador bloquea y reduce daño
@@ -165,15 +162,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
       let danio = danioBase * multiplicador * bloqueoReduccion;
       vidaJugador -= Math.round(danio);
-      textoResultado += `<p>Computadora atacó, pero tu bloqueo redujo daño a ${Math.round(danio)}.</p>`;
+      textoResultado += <p>Computadora atacó, pero tu bloqueo redujo daño a ${Math.round(danio)}.</p>;
     } else if (accionCompu === "bloquear") {
       computadoraBloqueando = true;
-      textoResultado += `<p>Computadora también se bloqueó.</p>`;
+      textoResultado += <p>Computadora también se bloqueó.</p>;
     } else {
       vidaComputadora += esperaRecuperacion;
       if (vidaComputadora > maxVida) vidaComputadora = maxVida;
       computadoraBloqueando = false;
-      textoResultado += `<p>Computadora recuperó vida (+${esperaRecuperacion}).</p>`;
+      textoResultado += <p>Computadora recuperó vida (+${esperaRecuperacion}).</p>;
     }
 
     jugadorBloqueando = false;
@@ -184,7 +181,7 @@ document.addEventListener("DOMContentLoaded", () => {
     actualizarVida();
 
     if (vidaJugador === 0 || vidaComputadora === 0) {
-      textoResultado += `<h3>${vidaJugador === 0 ? "¡Perdiste el juego!" : "¡Ganaste el juego!"}</h3>`;
+      textoResultado += <h3>${vidaJugador === 0 ? "¡Perdiste el juego!" : "¡Ganaste el juego!"}</h3>;
       deshabilitarBotones();
     }
 
@@ -194,7 +191,7 @@ document.addEventListener("DOMContentLoaded", () => {
   // Acción esperar
   function esperar() {
     if (!eleccionJugador) {
-      resultadoDiv.innerHTML = `<p>Primero selecciona un elemento.</p>`;
+      resultadoDiv.innerHTML = <p>Primero selecciona un elemento.</p>;
       return;
     }
     // Jugador recupera vida
@@ -205,8 +202,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const accionesComputadora = ["atacar", "bloquear", "esperar"];
     const accionCompu = accionesComputadora[Math.floor(Math.random() * accionesComputadora.length)];
 
-    let textoResultado = `<p>Elegiste <strong>${capitalizar(eleccionJugador)}</strong> y esperaste para recuperar vida (+${esperaRecuperacion}).</p>`;
-    textoResultado += `<p>La computadora eligió <strong>${capitalizar(eleccionComputadora)}</strong> y su acción fue <strong>${accionCompu}</strong>.</p>`;
+    let textoResultado = <p>Elegiste <strong>${capitalizar(eleccionJugador)}</strong> y esperaste para recuperar vida (+${esperaRecuperacion}).</p>;
+    textoResultado += <p>La computadora eligió <strong>${capitalizar(eleccionComputadora)}</strong> y su acción fue <strong>${accionCompu}</strong>.</p>;
 
     if (accionCompu === "atacar") {
       let multiplicador = 1;
@@ -215,15 +212,15 @@ document.addEventListener("DOMContentLoaded", () => {
 
       let danio = danioBase * multiplicador;
       vidaJugador -= Math.round(danio);
-      textoResultado += `<p>Computadora atacó y te hizo ${Math.round(danio)} de daño.</p>`;
+      textoResultado += <p>Computadora atacó y te hizo ${Math.round(danio)} de daño.</p>;
     } else if (accionCompu === "bloquear") {
       computadoraBloqueando = true;
-      textoResultado += `<p>Computadora se bloqueó para reducir daño en el siguiente turno.</p>`;
+      textoResultado += <p>Computadora se bloqueó para reducir daño en el siguiente turno.</p>;
     } else {
       vidaComputadora += esperaRecuperacion;
       if (vidaComputadora > maxVida) vidaComputadora = maxVida;
       computadoraBloqueando = false;
-      textoResultado += `<p>Computadora también esperó y recuperó vida (+${esperaRecuperacion}).</p>`;
+      textoResultado += <p>Computadora también esperó y recuperó vida (+${esperaRecuperacion}).</p>;
     }
 
     if (vidaJugador < 0) vidaJugador = 0;
@@ -232,7 +229,7 @@ document.addEventListener("DOMContentLoaded", () => {
     actualizarVida();
 
     if (vidaJugador === 0 || vidaComputadora === 0) {
-      textoResultado += `<h3>${vidaJugador === 0 ? "¡Perdiste el juego!" : "¡Ganaste el juego!"}</h3>`;
+      textoResultado += <h3>${vidaJugador === 0 ? "¡Perdiste el juego!" : "¡Ganaste el juego!"}</h3>;
       deshabilitarBotones();
     }
 
@@ -260,3 +257,4 @@ document.addEventListener("DOMContentLoaded", () => {
   // Inicializar barras de vida
   actualizarVida();
 });
+ 
