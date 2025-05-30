@@ -1,0 +1,13 @@
+{
+  "name": "mi-juego-backend",
+  "version": "1.0.0",
+  "description": "Juego web Piedra, Papel o Poderes con backend básico auto-hosteable",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "helmet": "^6.0.1"
+  }
+}
