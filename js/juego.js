@@ -1,259 +1,190 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const opciones = ["piedra", "papel", "tijera", "fuego", "agua", "rayo"];
-  const maxVida = 100;
+  // Opciones y efectividades
+  const opciones = ["piedra", "papel", "tijera", "fuego", "agua", "rayo"];
+  const maxVida = 100;
+  const danioBase = 20;
+  const bloqueoReduccion = 0.5;
+  const esperaRecuperacion = 15;
 
-  // Tabla de efectividades tipo Pokémon (multiplicador de daño)
-  const efectividad = {
-    piedra:   { fuerte: ["tijera", "rayo"],    "débil": ["papel", "agua"] },
-    papel:    { fuerte: ["piedra", "agua"],    "débil": ["tijera", "fuego"] },
-    tijera:   { fuerte: ["papel", "agua"],     "débil": ["piedra", "fuego"] },
-    fuego:    { fuerte: ["papel", "tijera"],   "débil": ["agua", "rayo"] },
-    agua:     { fuerte: ["fuego", "piedra"],   "débil": ["papel", "rayo"] },
-    rayo:     { fuerte: ["agua", "fuego"],     "débil": ["piedra", "tijera"] }
-  };
+  // Dificultad progresiva
+  let nivel = 1;
+  let vidaJugador = maxVida;
+  let vidaComputadoraBase = maxVida;
+  let vidaComputadora = vidaComputadoraBase;
+  const aumentoVidaPorNivel = 20;
 
-  let vidaJugador = maxVida;
-  let vidaComputadora = maxVida;
-  let eleccionJugador = null;
-  let eleccionComputadora = null;
-  let jugadorBloqueando = false;
-  let computadoraBloqueando = false;
+  // Estados de turno
+  let eleccionJugador = null;
+  let computadoraBloqueando = false;
+  let jugadorBloqueando = false;
 
-  const resultadoDiv = document.getElementById("resultado");
-  const vidaJugadorBarra = document.getElementById("vida-jugador");
-  const vidaComputadoraBarra = document.getElementById("vida-computadora");
-  const textoVidaJugador = document.getElementById("texto-vida-jugador");
-  const textoVidaComputadora = document.getElementById("texto-vida-computadora");
+  // Tabla de efectividad
+  const efectividad = {
+    piedra: { fuerte: ["tijera", "rayo"], debil: ["papel", "agua"] },
+    papel: { fuerte: ["piedra", "agua"], debil: ["tijera", "fuego"] },
+    tijera: { fuerte: ["papel", "agua"], debil: ["piedra", "fuego"] },
+    fuego: { fuerte: ["papel", "tijera"], debil: ["agua", "rayo"] },
+    agua: { fuerte: ["fuego", "piedra"], debil: ["papel", "rayo"] },
+    rayo: { fuerte: ["agua", "fuego"], debil: ["piedra", "tijera"] },
+  };
 
-  // Botones
-  const botonesOpciones = document.querySelectorAll(".opcion");
-  const btnAtacar = document.getElementById("atacar");
-  const btnBloquear = document.getElementById("bloquear");
-  const btnEsperar = document.getElementById("esperar");
+  // DOM
+  const resultadoDiv = document.getElementById("resultado");
+  const vidaJugadorBarra = document.getElementById("vida-jugador");
+  const vidaComputadoraBarra = document.getElementById("vida-computadora");
+  const textoVidaJugador = document.getElementById("texto-vida-jugador");
+  const textoVidaComputadora = document.getElementById("texto-vida-computadora");
+  const botonesOpciones = document.querySelectorAll(".opcion");
+  const btnAtacar = document.getElementById("atacar");
+  const btnBloquear = document.getElementById("bloquear");
+  const btnEsperar = document.getElementById("esperar");
 
-  // Actualiza las barras de vida
-  function actualizarVida() {
-    vidaJugadorBarra.style.width = (vidaJugador > 0 ? vidaJugador : 0) + "%";
-    vidaComputadoraBarra.style.width = (vidaComputadora > 0 ? vidaComputadora : 0) + "%";
-    textoVidaJugador.textContent = `${vidaJugador > 0 ? vidaJugador : 0} / ${maxVida}`;
-    textoVidaComputadora.textContent = `${vidaComputadora > 0 ? vidaComputadora : 0} / ${maxVida}`;
-  }
+  // Actualiza barras y texto de vida
+  function actualizarVida() {
+    vidaJugadorBarra.style.width = `${Math.max(vidaJugador, 0)}%`;
+    vidaComputadoraBarra.style.width = `${Math.max(vidaComputadora, 0)}%`;
+    textoVidaJugador.textContent = `${Math.max(vidaJugador, 0)} / ${maxVida}`;
+    textoVidaComputadora.textContent = `${Math.max(vidaComputadora, 0)} / ${maxVida}`;
+  }
 
-  // Elige opción jugador
-  botonesOpciones.forEach(boton => {
-    boton.addEventListener("click", () => {
-      eleccionJugador = boton.dataset.opcion;
-      // Visualmente marcar selección
-      botonesOpciones.forEach(b => b.classList.remove("seleccionado"));
-      boton.classList.add("seleccionado");
-      resultadoDiv.innerHTML = `<p>Has seleccionado <strong>${capitalizar(eleccionJugador)}</strong>. Ahora elige una acción.</p>`;
-    });
-  });
+  // Escoger opción del jugador
+  botonesOpciones.forEach(boton => {
+    boton.addEventListener("click", () => {
+      eleccionJugador = boton.dataset.opcion;
+      botonesOpciones.forEach(b => b.classList.remove("seleccionado"));
+      boton.classList.add("seleccionado");
+      resultadoDiv.innerHTML = `<p>Has seleccionado <strong>${capitalizar(eleccionJugador)}</strong>. Elige acción.</p>`;
+    });
+  });
 
-  // Función para elegir aleatoriamente opción de computadora
-  function eleccionRandom() {
-    return opciones[Math.floor(Math.random() * opciones.length)];
-  }
+  // Elección aleatoria de computadora
+  function eleccionRandom() {
+    return opciones[Math.floor(Math.random() * opciones.length)];
+  }
 
-  // Calcular daño base
-  const danioBase = 20;
-  const bloqueoReduccion = 0.5;
-  const esperaRecuperacion = 15;
+  // Evento aleatorio al inicio de ronda
+  function eventoAleatorio() {
+    const eventos = [
+      {
+        descripcion: "Tormenta eléctrica: el enemigo recibe 10 de daño extra.",
+        efecto: () => { vidaComputadora = Math.max(vidaComputadora - 10, 0); }
+      },
+      {
+        descripcion: "Curación rápida: el enemigo recupera 15 de vida.",
+        efecto: () => { vidaComputadora = Math.min(vidaComputadora + 15, maxVida * 2); }
+      },
+      {
+        descripcion: "Inspiración: recuperas 10 puntos de vida.",
+        efecto: () => { vidaJugador = Math.min(vidaJugador + 10, maxVida); }
+      },
+      {
+        descripcion: "No ocurre nada extraordinario.",
+        efecto: () => {}
+      }
+    ];
+    const evento = eventos[Math.floor(Math.random() * eventos.length)];
+    evento.efecto();
+    return evento.descripcion;
+  }
 
-  // Acción atacar
-  function atacar() {
-    if (!eleccionJugador) {
-      resultadoDiv.innerHTML = `<p>Primero selecciona un elemento.</p>`;
-      return;
-    }
+  // Reinicia ronda con nivel y dificultad incrementada
+  function reiniciarRonda() {
+    nivel++;
+    vidaJugador = maxVida;
+    vidaComputadoraBase += aumentoVidaPorNivel;
+    vidaComputadora = vidaComputadoraBase;
+    jugadorBloqueando = false;
+    computadoraBloqueando = false;
+    botonesOpciones.forEach(b => b.disabled = false);
+    btnAtacar.disabled = false;
+    btnBloquear.disabled = false;
+    btnEsperar.disabled = false;
+    actualizarVida();
+    resultadoDiv.innerHTML = `<h3>¡Nivel ${nivel}!</h3><p>Dificultad aumentada, prepárate.</p>`;
+    setTimeout(() => resultadoDiv.innerHTML = `<p>Nueva ronda, elige elemento.</p>`, 2000);
+  }
 
-    eleccionComputadora = eleccionRandom();
+  // Deshabilita botones
+  function deshabilitarBotones() {
+    botonesOpciones.forEach(b => b.disabled = true);
+    btnAtacar.disabled = true;
+    btnBloquear.disabled = true;
+    btnEsperar.disabled = true;
+  }
 
-    // Computadora elige acción aleatoria (atacar, bloquear, esperar)
-    const accionesComputadora = ["atacar", "bloquear", "esperar"];
-    const accionCompu = accionesComputadora[Math.floor(Math.random() * accionesComputadora.length)];
+  // Calcular daño usando efectividad y bloqueo
+  function calcularDanio(atacante, defensor, defensorBloqueando) {
+    let mult = 1;
+    if (efectividad[atacante].fuerte.includes(defensor)) mult = 2;
+    else if (efectividad[atacante].debil.includes(defensor)) mult = 0.5;
+    let danio = danioBase * mult;
+    return defensorBloqueando ? danio * bloqueoReduccion : danio;
+  }
 
-    // Calcular multiplicador de daño
-    let multiplicador = 1;
-    if (efectividad[eleccionJugador].fuerte.includes(eleccionComputadora)) multiplicador = 2;
-    else if (efectividad[eleccionJugador].débil.includes(eleccionComputadora)) multiplicador = 0.5;
+  // Funciones de acción
+  function turnoBase(accionJugador) {
+    if (!eleccionJugador) {
+      resultadoDiv.innerHTML = `<p>Primero selecciona un elemento.</p>`;
+      return;
+    }
+    // Elección de computadora
+    const eleccionCompu = eleccionRandom();
+    const accionesCompu = ["atacar", "bloquear", "esperar"];
+    const accionCompu = accionesCompu[Math.floor(Math.random() * accionesCompu.length)];
 
-    // Daño jugador a computadora
-    let danioJugador = danioBase * multiplicador;
-    if (computadoraBloqueando) danioJugador *= bloqueoReduccion;
+    // Calcular daño
+    const danioACompu = calcularDanio(eleccionJugador, eleccionCompu, computadoraBloqueando);
+    const danioAJug = calcularDanio(eleccionCompu, eleccionJugador, jugadorBloqueando);
 
-    // Calcular daño computadora a jugador si ataca
-    let danioComputadora = 0;
-    if (accionCompu === "atacar") {
-      multiplicador = 1;
-      if (efectividad[eleccionComputadora].fuerte.includes(eleccionJugador)) multiplicador = 2;
-      else if (efectividad[eleccionComputadora].débil.includes(eleccionJugador)) multiplicador = 0.5;
+    // Aplicar acción jugador
+    if (accionJugador === "atacar") vidaComputadora = Math.max(vidaComputadora - Math.round(danioACompu), 0);
+    else if (accionJugador === "esperar") vidaJugador = Math.min(vidaJugador + esperaRecuperacion, maxVida);
+    else if (accionJugador === "bloquear") jugadorBloqueando = true;
 
-      danioComputadora = danioBase * multiplicador;
-      if (jugadorBloqueando) danioComputadora *= bloqueoReduccion;
-    }
+    // Aplicar acción computadora
+    if (accionCompu === "atacar") vidaJugador = Math.max(vidaJugador - Math.round(danioAJug), 0);
+    else if (accionCompu === "esperar") vidaComputadora = Math.min(vidaComputadora + esperaRecuperacion, maxVida * 2);
+    else if (accionCompu === "bloquear") computadoraBloqueando = true;
 
-    // Aplicar daños o recuperación según acción computadora
-    switch (accionCompu) {
-      case "atacar":
-        vidaJugador -= Math.round(danioComputadora);
-        computadoraBloqueando = false;
-        break;
-      case "bloquear":
-        computadoraBloqueando = true;
-        break;
-      case "esperar":
-        vidaComputadora += esperaRecuperacion;
-        if (vidaComputadora > maxVida) vidaComputadora = maxVida;
-        computadoraBloqueando = false;
-        break;
-    }
+    // Evento aleatorio
+    const descEvento = eventoAleatorio();
+    actualizarVida();
 
-    // Aplicar daño jugador a computadora
-    vidaComputadora -= Math.round(danioJugador);
+    // Mostrar resultados
+    let res = `<p>Elegiste <strong>${capitalizar(eleccionJugador)}</strong> y ${accionJugador}.</p>`;
+    res += `<p>La computadora eligió <strong>${capitalizar(eleccionCompu)}</strong> y ${accionCompu}.</p>`;
+    res += `<p>Daño a compu: ${Math.round(danioACompu)} | Daño a ti: ${Math.round(danioAJug)}</p>`;
+    res += `<p><em>Evento: ${descEvento}</em></p>`;
 
-    // Reset bloqueos jugador
-    jugadorBloqueando = false;
+    if (vidaJugador === 0 || vidaComputadora === 0) {
+      res += `<h3>${vidaJugador === 0 ? "¡Perdiste esta ronda!" : "¡Ganaste esta ronda!"}</h3>`;
+      res += `<button id="siguienteNivel">Siguiente nivel</button>`;
+      deshabilitarBotones();
+    }
 
-    // Limitar vida a rango válido
-    if (vidaJugador < 0) vidaJugador = 0;
-    if (vidaComputadora < 0) vidaComputadora = 0;
+    resultadoDiv.innerHTML = res;
+  }
 
-    // Actualizar barras de vida
-    actualizarVida();
+  function atacar() { turnoBase("atacar"); }
+  function bloquear() { turnoBase("bloquear"); }
+  function esperar() { turnoBase("esperar"); }
 
-    // Mostrar resultado
-    let textoResultado = `<p>Elegiste <strong>${capitalizar(eleccionJugador)}</strong> y atacaste.</p>`;
-    textoResultado += `<p>La computadora eligió <strong>${capitalizar(eleccionComputadora)}</strong> y su acción fue <strong>${accionCompu}</strong>.</p>`;
-    textoResultado += `<p>Daño a computadora: ${Math.round(danioJugador)}</p>`;
-    if (accionCompu === "atacar") textoResultado += `<p>Daño a ti: ${Math.round(danioComputadora)}</p>`;
-    else if (accionCompu === "bloquear") textoResultado += `<p>Computadora se bloqueó y reduce daño el siguiente turno.</p>`;
-    else textoResultado += `<p>Computadora recuperó vida (+${esperaRecuperacion}).</p>`;
+  // Capitalizar
+  function capitalizar(text) {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  }
 
-    if (vidaJugador === 0 || vidaComputadora === 0) {
-      textoResultado += `<h3>${vidaJugador === 0 ? "¡Perdiste el juego!" : "¡Ganaste el juego!"}</h3>`;
-      deshabilitarBotones();
-    }
+  // Eventos de botones
+  btnAtacar.addEventListener("click", atacar);
+  btnBloquear.addEventListener("click", bloquear);
+  btnEsperar.addEventListener("click", esperar);
 
-    resultadoDiv.innerHTML = textoResultado;
-  }
+  // Reiniciar ronda al pulsar "Siguiente nivel"
+  document.body.addEventListener("click", e => {
+    if (e.target.id === "siguienteNivel") reiniciarRonda();
+  });
 
-  // Acción bloquear
-  function bloquear() {
-    if (!eleccionJugador) {
-      resultadoDiv.innerHTML = `<p>Primero selecciona un elemento.</p>`;
-      return;
-    }
-    jugadorBloqueando = true;
-
-    eleccionComputadora = eleccionRandom();
-    const accionesComputadora = ["atacar", "bloquear", "esperar"];
-    const accionCompu = accionesComputadora[Math.floor(Math.random() * accionesComputadora.length)];
-
-    // Computadora ataca si el jugador bloquea, jugador no recibe daño este turno
-    let textoResultado = `<p>Elegiste <strong>${capitalizar(eleccionJugador)}</strong> y te bloqueaste.</p>`;
-    textoResultado += `<p>La computadora eligió <strong>${capitalizar(eleccionComputadora)}</strong> y su acción fue <strong>${accionCompu}</strong>.</p>`;
-
-    if (accionCompu === "atacar") {
-      // Computadora ataca, jugador bloquea y reduce daño
-      let multiplicador = 1;
-      if (efectividad[eleccionComputadora].fuerte.includes(eleccionJugador)) multiplicador = 2;
-      else if (efectividad[eleccionComputadora].débil.includes(eleccionJugador)) multiplicador = 0.5;
-
-      let danio = danioBase * multiplicador * bloqueoReduccion;
-      vidaJugador -= Math.round(danio);
-      textoResultado += `<p>Computadora atacó, pero tu bloqueo redujo daño a ${Math.round(danio)}.</p>`;
-    } else if (accionCompu === "bloquear") {
-      computadoraBloqueando = true;
-      textoResultado += `<p>Computadora también se bloqueó.</p>`;
-    } else {
-      vidaComputadora += esperaRecuperacion;
-      if (vidaComputadora > maxVida) vidaComputadora = maxVida;
-      computadoraBloqueando = false;
-      textoResultado += `<p>Computadora recuperó vida (+${esperaRecuperacion}).</p>`;
-    }
-
-    jugadorBloqueando = false;
-
-    if (vidaJugador < 0) vidaJugador = 0;
-    if (vidaComputadora < 0) vidaComputadora = 0;
-
-    actualizarVida();
-
-    if (vidaJugador === 0 || vidaComputadora === 0) {
-      textoResultado += `<h3>${vidaJugador === 0 ? "¡Perdiste el juego!" : "¡Ganaste el juego!"}</h3>`;
-      deshabilitarBotones();
-    }
-
-    resultadoDiv.innerHTML = textoResultado;
-  }
-
-  // Acción esperar
-  function esperar() {
-    if (!eleccionJugador) {
-      resultadoDiv.innerHTML = `<p>Primero selecciona un elemento.</p>`;
-      return;
-    }
-    // Jugador recupera vida
-    vidaJugador += esperaRecuperacion;
-    if (vidaJugador > maxVida) vidaJugador = maxVida;
-
-    eleccionComputadora = eleccionRandom();
-    const accionesComputadora = ["atacar", "bloquear", "esperar"];
-    const accionCompu = accionesComputadora[Math.floor(Math.random() * accionesComputadora.length)];
-
-    let textoResultado = `<p>Elegiste <strong>${capitalizar(eleccionJugador)}</strong> y esperaste para recuperar vida (+${esperaRecuperacion}).</p>`;
-    textoResultado += `<p>La computadora eligió <strong>${capitalizar(eleccionComputadora)}</strong> y su acción fue <strong>${accionCompu}</strong>.</p>`;
-
-    if (accionCompu === "atacar") {
-      let multiplicador = 1;
-      if (efectividad[eleccionComputadora].fuerte.includes(eleccionJugador)) multiplicador = 2;
-      else if (efectividad[eleccionComputadora].débil.includes(eleccionJugador)) multiplicador = 0.5;
-
-      let danio = danioBase * multiplicador;
-      vidaJugador -= Math.round(danio);
-      textoResultado += `<p>Computadora atacó y te hizo ${Math.round(danio)} de daño.</p>`;
-    } else if (accionCompu === "bloquear") {
-      computadoraBloqueando = true;
-      textoResultado += `<p>Computadora se bloqueó para reducir daño en el siguiente turno.</p>`;
-    } else {
-      vidaComputadora += esperaRecuperacion;
-      if (vidaComputadora > maxVida) vidaComputadora = maxVida;
-      computadoraBloqueando = false;
-      textoResultado += `<p>Computadora también esperó y recuperó vida (+${esperaRecuperacion}).</p>`;
-    }
-
-    if (vidaJugador < 0) vidaJugador = 0;
-    if (vidaComputadora < 0) vidaComputadora = 0;
-
-    actualizarVida();
-
-    if (vidaJugador === 0 || vidaComputadora === 0) {
-      textoResultado += `<h3>${vidaJugador === 0 ? "¡Perdiste el juego!" : "¡Ganaste el juego!"}</h3>`;
-      deshabilitarBotones();
-    }
-
-    resultadoDiv.innerHTML = textoResultado;
-  }
-
-  // Deshabilitar botones cuando termina el juego
-  function deshabilitarBotones() {
-    botonesOpciones.forEach(b => b.disabled = true);
-    btnAtacar.disabled = true;
-    btnBloquear.disabled = true;
-    btnEsperar.disabled = true;
-  }
-
-  // Capitalizar texto
-  function capitalizar(texto) {
-    return texto.charAt(0).toUpperCase() + texto.slice(1);
-  }
-
-  // Eventos botones de acción
-  btnAtacar.addEventListener("click", atacar);
-  btnBloquear.addEventListener("click", bloquear);
-  btnEsperar.addEventListener("click", esperar);
-
-  // Inicializar barras de vida
-  actualizarVida();
+  // Inicializar primera ronda
+  actualizarVida();
+  resultadoDiv.innerHTML = `<p>Nivel ${nivel}. Selecciona un elemento.</p>`;
 });
