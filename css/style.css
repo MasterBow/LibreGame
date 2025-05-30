@@ -12,6 +12,16 @@ header, footer {
   text-align: center;
 }
 
+footer {
+  font-size: 0.9rem;
+  color: #bbb;
+}
+
+nav {
+  text-align: center;
+  margin: 10px 0;
+}
+
 nav a {
   color: #61dafb;
   margin: 0 10px;
@@ -22,10 +32,42 @@ nav a:hover {
   text-decoration: underline;
 }
 
+nav a.activo {
+  font-weight: bold;
+  color: #005f99;
+}
+
 main {
-  padding: 20px;
-  max-width: 600px;
+  padding: 2rem;
+  max-width: 800px;
   margin: 0 auto;
+}
+
+main section {
+  background-color: white;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  margin-top: 1rem;
+}
+
+main ul {
+  list-style-type: disc;
+  margin-left: 2rem;
+}
+
+main li {
+  margin-bottom: 1rem;
+}
+
+main li a {
+  color: #007acc;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+main li a:hover {
+  text-decoration: underline;
 }
 
 .juego h2, .juego h3, .juego h4 {
@@ -87,51 +129,42 @@ main {
 }
 
 /* Cambiar color de barra de vida según nivel */
-.vida-actual[style*="width: 100%"], 
-.vida-actual[style*="width: 90%"], 
-.vida-actual[style*="width: 80%"], 
-.vida-actual[style*="width: 70%"], 
-.vida-actual[style*="width: 60%"], 
+.vida-actual[style*="width: 100%"],
+.vida-actual[style*="width: 90%"],
+.vida-actual[style*="width: 80%"],
+.vida-actual[style*="width: 70%"],
+.vida-actual[style*="width: 60%"],
 .vida-actual[style*="width: 50%"] {
   background-color: #4caf50;
 }
 
-.vida-actual[style*="width: 40%"], 
-.vida-actual[style*="width: 30%"], 
+.vida-actual[style*="width: 40%"],
+.vida-actual[style*="width: 30%"],
 .vida-actual[style*="width: 20%"] {
   background-color: #ff9800;
 }
 
-.vida-actual[style*="width: 10%"], 
+.vida-actual[style*="width: 10%"],
 .vida-actual[style*="width: 0%"] {
   background-color: #f44336;
 }
-main {
-  padding: 2rem;
+
+/* Estilo para proyectos en página "Otros Proyectos" */
+.proyecto {
+  background-color: #fff;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 15px;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
 }
 
-main ul {
-  list-style-type: disc;
-  margin-left: 2rem;
-}
-
-main li {
-  margin-bottom: 1rem;
-}
-
-main li a {
+.proyecto a {
   color: #007acc;
-  text-decoration: none;
   font-weight: bold;
+  text-decoration: none;
 }
 
-main li a:hover {
+.proyecto a:hover {
   text-decoration: underline;
 }
-
-/* Enlace activo en navegación */
-nav ul li a.activo {
-  font-weight: bold;
-  color: #005f99;
-}
-
