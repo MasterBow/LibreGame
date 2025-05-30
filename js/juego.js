@@ -4,14 +4,17 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Tabla de efectividades tipo Pokémon (multiplicador de daño)
   const efectividad = {
-    piedra:   { fuerte: ["tijera", "rayo"],    débil: ["papel", "agua"] },
-    papel:    { fuerte: ["piedra", "agua"],    débil: ["tijera", "fuego"] },
-    tijera:   { fuerte: ["papel", "agua"],     débil: ["piedra", "fuego"] },
-    fuego:    { fuerte: ["papel", "tijera"],   débil: ["agua", "rayo"] },
-    agua:     { fuerte: ["fuego", "piedra"],   débil: ["papel", "rayo"] },
-    rayo:     { fuerte: ["agua", "fuego"],     débil: ["piedra", "tijera"] }
+    piedra:   { fuerte: ["tijera", "rayo"],    "débil": ["papel", "agua"] },
+    papel:    { fuerte: ["piedra", "agua"],    "débil": ["tijera", "fuego"] },
+    tijera:   { fuerte: ["papel", "agua"],     "débil": ["piedra", "fuego"] },
+    fuego:    { fuerte: ["papel", "tijera"],   "débil": ["agua", "rayo"] },
+    agua:     { fuerte: ["fuego", "piedra"],   "débil": ["papel", "rayo"] },
+    rayo:     { fuerte: ["agua", "fuego"],     "débil": ["piedra", "tijera"] }
   };
 
+  // Aquí puedes continuar con el resto del código
+
+});
   let vidaJugador = maxVida;
   let vidaComputadora = maxVida;
   let eleccionJugador = null;
