@@ -257,4 +257,3 @@ let vidaJugador = maxVida;
   // Inicializar barras de vida
   actualizarVida();
 });
- 
