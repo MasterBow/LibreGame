@@ -9,6 +9,11 @@ document.addEventListener("DOMContentLoaded", () => {
     agua:       { gana: ["fuego", "piedra"],   pierde: ["papel", "rayo"] },
     rayo:       { gana: ["agua", "fuego"],     pierde: ["piedra", "tijera"] }
   };
+const efectividades = {
+  piedra: { fuego: 2, agua: 0.5, rayo: 1, ... },
+  fuego: { papel: 2, agua: 0.5, piedra: 0.5, ... },
+  // Completar para todos
+};
 
   const botones = document.querySelectorAll(".opcion");
   const resultadoDiv = document.getElementById("resultado");
