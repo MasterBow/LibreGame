@@ -1,72 +1,83 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es"> <!-- Indica que el contenido del documento está en español -->
 <head>
+  <!-- Establece la codificación de caracteres a UTF-8 para soportar acentos y caracteres especiales -->
   <meta charset="UTF-8" />
+
+  <!-- Permite el diseño responsive al adaptarse al ancho del dispositivo -->
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <!-- Título de la pestaña del navegador -->
   <title>Inicio | Piedra, Papel o Poderes</title>
 
+  <!-- Fuente personalizada desde Google Fonts, da un estilo futurista/digital -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
+
+  <!-- Archivo CSS externo para los estilos generales del sitio -->
   <link rel="stylesheet" href="css/style.css" />
 
+  <!-- Estilos internos específicos para esta página -->
   <style>
     body {
-      margin: 0;
-      font-family: 'Orbitron', sans-serif;
-      background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
-      color: #f0f0f0;
+      margin: 0; /* Elimina márgenes por defecto */
+      font-family: 'Orbitron', sans-serif; /* Aplica la fuente Orbitron */
+      background: linear-gradient(to right, #0f2027, #203a43, #2c5364); /* Fondo con degradado oscuro */
+      color: #f0f0f0; /* Texto en tono claro para buen contraste */
     }
     header {
-      background-color: #111;
-      padding: 1rem;
-      text-align: center;
-      box-shadow: 0 2px 10px rgba(0,0,0,0.7);
+      background-color: #111; /* Color oscuro para el encabezado */
+      padding: 1rem; /* Espaciado interno */
+      text-align: center; /* Centra el contenido */
+      box-shadow: 0 2px 10px rgba(0,0,0,0.7); /* Sombra inferior para dar profundidad */
     }
     nav ul {
-      list-style: none;
-      padding: 0;
+      list-style: none; /* Quita viñetas */
+      padding: 0; /* Elimina padding predeterminado */
       margin: 0;
-      display: flex;
-      justify-content: center;
-      gap: 2rem;
+      display: flex; /* Distribuye los elementos horizontalmente */
+      justify-content: center; /* Centra horizontalmente */
+      gap: 2rem; /* Espacio entre elementos */
     }
     nav a {
-      text-decoration: none;
-      color: #00fff7;
-      font-weight: bold;
-      transition: color 0.3s ease;
+      text-decoration: none; /* Quita el subrayado de los enlaces */
+      color: #00fff7; /* Color cian brillante para los enlaces */
+      font-weight: bold; /* Texto en negritas */
+      transition: color 0.3s ease; /* Suaviza el cambio de color al pasar el cursor */
     }
     nav a:hover {
-      color: #ff0099;
+      color: #ff0099; /* Cambia a fucsia al pasar el mouse */
     }
     .bienvenida {
-      padding: 4rem 2rem;
-      text-align: center;
-      background: rgba(0,0,0,0.4);
-      margin: 2rem auto;
-      max-width: 800px;
-      border-radius: 15px;
-      box-shadow: 0 0 20px rgba(0,255,255,0.3);
+      padding: 4rem 2rem; /* Espaciado interno */
+      text-align: center; /* Centra texto */
+      background: rgba(0,0,0,0.4); /* Fondo semi-transparente */
+      margin: 2rem auto; /* Espaciado vertical y centrado horizontal */
+      max-width: 800px; /* Limita el ancho */
+      border-radius: 15px; /* Bordes redondeados */
+      box-shadow: 0 0 20px rgba(0,255,255,0.3); /* Sombra brillante para resaltar */
     }
     h1 {
-      font-size: 2.5rem;
-      margin-bottom: 1rem;
+      font-size: 2.5rem; /* Tamaño grande para el título principal */
+      margin-bottom: 1rem; /* Espacio debajo del título */
     }
     p {
-      font-size: 1.2rem;
+      font-size: 1.2rem; /* Tamaño de letra para el párrafo de bienvenida */
     }
     footer {
-      text-align: center;
-      padding: 1rem;
-      background-color: #111;
-      margin-top: 3rem;
-      font-size: 0.9rem;
+      text-align: center; /* Centra el contenido del pie de página */
+      padding: 1rem; /* Espaciado interno */
+      background-color: #111; /* Mismo fondo que el header para coherencia visual */
+      margin-top: 3rem; /* Espaciado superior para separar del contenido principal */
+      font-size: 0.9rem; /* Tamaño ligeramente reducido del texto */
     }
   </style>
 </head>
 <body>
+  <!-- Encabezado con navegación del sitio -->
   <header>
     <nav>
       <ul>
+        <!-- Lista de enlaces a las diferentes páginas del sitio -->
         <li><a href="index.html">Inicio</a></li>
         <li><a href="acerca.html">Acerca</a></li>
         <li><a href="juego.html">Jugar</a></li>
@@ -76,6 +87,7 @@
     </nav>
   </header>
 
+  <!-- Contenido principal: sección de bienvenida -->
   <main>
     <section class="bienvenida">
       <h1>Bienvenido a Piedra, Papel o Poderes</h1>
@@ -83,6 +95,7 @@
     </section>
   </main>
 
+  <!-- Pie de página con información legal -->
   <footer>
     <p>&copy; 2025 Piedra, Papel o Poderes. Todos los derechos reservados.</p>
   </footer>
