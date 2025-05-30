@@ -1,54 +1,83 @@
 <!DOCTYPE html>
+<!-- Define el tipo de documento como HTML5 -->
 <html lang="es">
+<!-- Indica que el contenido está en español -->
 <head>
+  <!-- Configura la codificación de caracteres para soportar acentos y caracteres especiales -->
   <meta charset="UTF-8" />
+
+  <!-- Hace que el sitio sea responsivo en dispositivos móviles -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <!-- Título de la pestaña del navegador -->
   <title>Contacto | Piedra, Papel o Poderes</title>
 
+  <!-- Fuente personalizada desde Google Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500&display=swap" rel="stylesheet" />
+
+  <!-- Archivo CSS principal para los estilos del sitio -->
   <link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
+  <!-- Encabezado principal con barra de navegación -->
   <header>
     <nav>
       <ul>
+        <!-- Enlaces de navegación a las secciones del sitio -->
         <li><a href="index.html">Inicio</a></li>
         <li><a href="acerca.html">Acerca</a></li>
         <li><a href="juego.html">Jugar</a></li>
+        <!-- Se marca este enlace como activo visualmente -->
         <li><a href="contacto.html" class="activo">Contacto</a></li>
       </ul>
     </nav>
   </header>
 
+  <!-- Contenido principal de la página -->
   <main>
     <section class="contenedor-contacto">
       <h1>Contacto</h1>
+
+      <!-- Formulario para enviar mensajes -->
       <form id="form-contacto" action="#" method="post">
+        <!-- Campo para ingresar el nombre -->
         <label for="nombre">Nombre:</label>
         <input type="text" id="nombre" name="nombre" required />
 
+        <!-- Campo para ingresar el correo electrónico -->
         <label for="correo">Correo electrónico:</label>
         <input type="email" id="correo" name="correo" required />
 
+        <!-- Área de texto para el mensaje -->
         <label for="mensaje">Mensaje:</label>
         <textarea id="mensaje" name="mensaje" rows="5" required></textarea>
 
+        <!-- Botón para enviar el formulario -->
         <button type="submit">Enviar</button>
       </form>
+
+      <!-- Mensaje que aparece tras enviar el formulario -->
       <div id="mensaje-envio" aria-live="polite"></div>
     </section>
   </main>
 
+  <!-- Pie de página con derechos de autor -->
   <footer>
     <p>&copy; 2025 Piedra, Papel o Poderes. Todos los derechos reservados.</p>
   </footer>
 
+  <!-- Script para manejar el envío del formulario sin recargar la página -->
   <script>
     document.getElementById('form-contacto').addEventListener('submit', function(e) {
+      // Previene el comportamiento por defecto del formulario
       e.preventDefault();
+
+      // Muestra un mensaje de agradecimiento
       const mensajeEnvio = document.getElementById('mensaje-envio');
       mensajeEnvio.textContent = 'Gracias por contactarnos. Responderemos pronto.';
       mensajeEnvio.style.color = 'limegreen';
+
+      // Limpia los campos del formulario
       this.reset();
     });
   </script>
